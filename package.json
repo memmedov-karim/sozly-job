@@ -1,0 +1,23 @@
+{
+  "name": "sozly-job",
+  "version": "1.0.0",
+  "description": "Redis match session cleanup job with cron",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "node-cron": "^3.0.3",
+    "redis": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@types/node-cron": "^3.0.11",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.3"
+  }
+}
