@@ -21,7 +21,7 @@ export class CleanupJob {
 
   constructor(redisService: RedisService) {
     this.redis = redisService;
-    this.cronSchedule = process.env.CRON_SCHEDULE || '* * * * * *';
+    this.cronSchedule = process.env.MATCH_SESSION_CLEANUP_CRON_SCHEDULE || '* * * * * *';
     this.sessionPrefix = process.env.MATCH_SESSION_PREFIX || 'match_session:';
   }
 
@@ -38,7 +38,7 @@ export class CleanupJob {
       await this.executeCleanup();
     });
 
-    console.log('Cleanup job started');
+    console.log('Cleanup job started' + this.cronSchedule);
     
     // Run immediately on start
     this.executeCleanup();
