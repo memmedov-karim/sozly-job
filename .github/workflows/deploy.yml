@@ -44,7 +44,7 @@ jobs:
             npm run build
       
             echo '🚀 Starting app with PM2 using cluster script...'
-            pm2 start dist/server.js --name sozly-job
+            pm2 start dist/index.js --name sozly-job
       
             echo '💾 Saving PM2 process list...'
             pm2 save
