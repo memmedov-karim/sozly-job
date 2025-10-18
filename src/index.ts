@@ -1,6 +1,9 @@
 import "dotenv/config"
-import { RedisService } from './services/redis.js';
-import { CleanupJob } from './jobs/cleanup.js';
+import { RedisService } from './services/redis';
+import { CleanupJob } from './jobs/cleanup';
+import {connectRabbitMQ} from "./config/rabbit/rabbit";
+import {startConsumer} from "./config/rabbit/consumer";
+import { DatabaseConfig } from './config/db/mongo';
 
 async function main() {
   console.log('Starting Redis Cleanup Job Service...');
@@ -9,8 +12,16 @@ async function main() {
     // Initialize Redis connection
     const redisService = RedisService.getInstance();
     await redisService.connect();
+
+    const db = DatabaseConfig.getInstance();
+    await db.connectMongoDB();
+
     console.log('Redis connected successfully');
 
+    // Initialize RabbitMQ connection
+    await connectRabbitMQ();
+    await startConsumer();
+   
     // Initialize and start cleanup job
     const cleanupJob = new CleanupJob(redisService);
     cleanupJob.start();
