@@ -21,7 +21,7 @@ export class CleanupJob {
 
   constructor(redisService: RedisService) {
     this.redis = redisService;
-    this.cronSchedule = process.env.MATCH_SESSION_CLEANUP_CRON_SCHEDULE || '* * * * * *';
+    this.cronSchedule = process.env.MATCH_SESSION_CLEANUP_CRON_SCHEDULE || '* * * *';
     this.sessionPrefix = process.env.MATCH_SESSION_PREFIX || 'match_session:';
   }
 
