@@ -1,13 +1,19 @@
 // src/config/rabbit.ts
-import amqp from 'amqplib';
+import amqp from "amqplib";
 
 var channel: amqp.Channel;
 
+const RABBITMQ_URL = process.env.RABBITMQ_URL;
+
+if (!RABBITMQ_URL) {
+  throw new Error("RABBITMQ_URL is not set");
+}
+
 export const connectRabbitMQ = async () => {
-  const connection = await amqp.connect('amqp://sozly_app:sozly_20012912M.s@213.199.33.9:5672');
+  const connection = await amqp.connect(RABBITMQ_URL);
   channel = await connection.createChannel();
 
-  console.log('Connected to RabbitMQ');
+  console.log("Connected to RabbitMQ");
   return channel;
 };
 
