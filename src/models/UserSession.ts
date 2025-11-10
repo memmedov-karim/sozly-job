@@ -5,6 +5,7 @@ import { UserPreferences } from '../types';
 export interface IUserSession extends Document {
   socketId: string;
   ip: string;
+  uniqueUserId?: string;
   preferences: UserPreferences;
   isOnline: boolean;
   joinedAt: Date;
@@ -22,6 +23,7 @@ const UserSessionSchema = new Schema<IUserSession>(
     ip: {
       type: String,
     },
+    uniqueUserId: { type: String, index: true },
     preferences: {
       gender: { type: String, enum: GENDERS.map((m_g) => m_g.value), required: true },
       preferredGender: { type: String, enum: ALL_GENDERS.map((y_g) => y_g.value), required: true },

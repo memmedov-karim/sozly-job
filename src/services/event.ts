@@ -113,6 +113,7 @@ async function handleUserDisconnected(data: {
 
 async function handleUserJoinedQueue(data: {
   socketId: string;
+  uniqueUserId?: string;
   ip: string;
   preferences: any;
   location?: any;
@@ -122,6 +123,7 @@ async function handleUserJoinedQueue(data: {
     await UserSession.findOneAndUpdate(
       { socketId: data.socketId },
       {
+        uniqueUserId: data.uniqueUserId,
         socketId: data.socketId,
         ip: data.ip,
         preferences: data.preferences,
@@ -154,7 +156,7 @@ async function handleUserLeftQueue(data: {
 
 async function handleMatchCreated(data: {
   sessionId: string;
-  users: Array<{ id: string; ip: string }>;
+  users: Array<{ id: string; ip: string, uniqueUserId?: string }>;
   language: string;
   topics: string[];
   chatType: string;
